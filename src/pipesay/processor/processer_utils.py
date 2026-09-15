@@ -207,3 +207,12 @@ def replace_repeat(sentences: list, rep_sen: str, log=None):
         result = rep_sen * q + rep_sen[:r]
         rl.append(result)
     return rl
+
+@processor('repeat')
+def repeat(sentences: list, count: int=2, log=None):
+    rl = []
+    
+    for s in sentences:
+        rl.append(s * count)
+    
+    return rl
