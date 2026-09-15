@@ -2,7 +2,7 @@ from pipesay.fetcher.fetcher import Fetcher
 from pipesay.outputers import outputer_utils  # noqa: F401
 from pipesay.outputers.base import Outputer
 from pipesay.parser.parser import arg_process
-from pipesay.processor import processer_utils  # noqa: F401
+from pipesay.processor import processor_utils  # noqa: F401
 from pipesay.processor.base import Processor
 from pipesay.utils.utils import clear_screen, enter_to_next
 
