@@ -3,7 +3,7 @@ from importlib.metadata import PackageNotFoundError, version
 
 from pipesay.core.pipeline import Pipeline
 from pipesay.core.registry import register
-from pipesay.fetcher.fetcher_utils import Fetcher
+from pipesay.fetcher.base import Fetcher
 from pipesay.outputers.base import Outputer
 from pipesay.processor.base import Processor
 
