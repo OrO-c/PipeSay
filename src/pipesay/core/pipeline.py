@@ -29,7 +29,7 @@ class Pipeline:
             available = [k for k in self.config if k != 'global']
             raise ValueError(
                 f"配置文件里找不到 {self.label} 需要的配置项 '{self.section}'。\n"
-                f"  配置文件: {self.config_source}\n"
+                f"  配置文件: {config_path}\n"
                 f"  顶层已有的配置项: {available or '（空）'}\n"
                 f"  请确认配置项名称是否拼写正确。"
             )
