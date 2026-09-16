@@ -9,14 +9,14 @@ from pipesay.utils.utils import clear_screen, enter_to_next
 
 
 def main():
-    args = arg_process()
-    fetcher = Fetcher(config_path=args.get('pipeline_config'))
+    config = arg_process()
+    fetcher = Fetcher(config)
     fetch_sentences = fetcher.fetch()
-    processor = Processor(config_path=args.get('pipeline_config'))
+    processor = Processor(config)
     speak_sentences = processor.process(fetch_sentences)
     enter_to_next("已经处理完成，按回车开始输出")
     clear_screen()
-    outputer = Outputer(config_path=args.get('pipeline_config'))
+    outputer = Outputer(config)
     outputer.fire(speak_sentences)
 
 if __name__ == "__main__":
