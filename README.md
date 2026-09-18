@@ -7,7 +7,7 @@ PipeSay 将句子处理抽象为一条可配置的流水线。每个环节都通
 ## 设计理念
 
 - **三段式流水线**：`Fetcher` → `Processor` → `Outputer`，职责清晰，互不耦合。
-- **注册式插件系统**：`@processor('name')` / `@outputer('name')` 一键注册，签名自动反射为可配置参数。
+- **注册式插件系统**：`@processor('name')` / `@processor('name')` / `@outputer('name')` 一键注册，签名自动反射为可配置参数。
 - **YAML 驱动**：处理器与输出器均以声明式配置组合，支持全局参数与步骤级参数合并。
 - **面向扩展**：核心只提供约定与调度，具体能力全部来自插件。
 
@@ -17,29 +17,15 @@ PipeSay 将句子处理抽象为一条可配置的流水线。每个环节都通
 ```
 
 ## 快速开始
-
-从网络获取一言并输出到终端：
-```bash
-    python -m pipesay hitokoto -p test2.yaml
-```
-
-从本地文件读取、加工后输出：
-```bash
-    python -m pipesay local -f ./cowsay.txt -p test.yaml
 ```
 ## 命令行
 ```text
-    usage: pipesay [-h] [-g GENERATIONS] [-p PIPELINE_CONFIG] {local,hitokoto} ...
+    usage: pipesay [-h] [-p {}] [-c PIPELINE_CONFIG]
 ```
 | 参数 | 说明 | 默认值 |
 | --- | --- | --- |
-| `-g, --generations` | 生成次数 | `1` |
-| `-s, --pipeline-config` | 流水线配置 | `None` |
-子命令：
-
-- `local`：`-f/--file` 指定本地文件（默认 `./cowsay.txt`）。
-- `hitokoto`：`-c/--category` 指定分类（可多选，默认全部）。
-
+| `-p, --parser-mode` | parser解析器模式 | `None` |
+| `-c, --pipeline-config` | 流水线配置 | `None` |
 ## 配置
 
 处理器配置：
@@ -108,10 +94,10 @@ PipeSay 将句子处理抽象为一条可配置的流水线。每个环节都通
 ## 工作原理
 ```text
     Fetcher ──▶ Processor ──▶ Outputer
-                    ▲              ▲
-                    └ pipeline.yaml┘
+        ▲              ▲        ▲
+        └ pipeline.yaml┘--------┘
 ```
-1. `Fetcher` 按模式返回 `list[str]`。
+1. `Fetcher` 读取`fetchers`段，从数据源获取数据。
 2. `Processor` 读取 `pipeline` 段，按序加工并逐级传递。
 3. `Outputer` 读取 `outputs` 段，将结果交给输出器展示。
 
