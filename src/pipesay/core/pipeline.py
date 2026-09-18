@@ -16,20 +16,16 @@ class Pipeline:
     section: str = ''
     label: str = 'Pipeline'
 
-    def __init__(self, config_path=None, config_dict=None):
+    def __init__(self, config_dict=None):
         if config_dict:
             self.config = config_dict
-        elif config_path:
-            with open(config_path, 'r', encoding='utf-8') as f:
-                self.config = yaml.safe_load(f)
         else:
-            raise ValueError("必须提供 config_path 或 config_dict")
+            raise ValueError("必须提供字典配置文件！")
 
         if self.section not in self.config:
             available = [k for k in self.config if k != 'global']
             raise ValueError(
                 f"配置文件里找不到 {self.label} 需要的配置项 '{self.section}'。\n"
-                f"  配置文件: {config_path}\n"
                 f"  顶层已有的配置项: {available or '（空）'}\n"
                 f"  请确认配置项名称是否拼写正确。"
             )
