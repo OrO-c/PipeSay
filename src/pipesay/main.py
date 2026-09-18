@@ -2,14 +2,14 @@ from pipesay.fetcher import fetcher_utils  # noqa: F401
 from pipesay.fetcher.base import Fetcher
 from pipesay.outputers import outputer_utils  # noqa: F401
 from pipesay.outputers.base import Outputer
-from pipesay.parser.parser import arg_process
+from pipesay.parser.parser import get_config
 from pipesay.processor import processor_utils  # noqa: F401
 from pipesay.processor.base import Processor
 from pipesay.utils.utils import clear_screen, enter_to_next
 
 
 def main():
-    config = arg_process()
+    config = get_config()
     fetcher = Fetcher(config)
     fetch_sentences = fetcher.fetch()
     processor = Processor(config)
