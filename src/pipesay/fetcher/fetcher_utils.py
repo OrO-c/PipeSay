@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import random
 import time
 
@@ -8,7 +9,6 @@ from urllib3 import Retry
 
 from pipesay.constants.constants import YIYAN_CATEGORY
 from pipesay.fetcher.base import fetcher
-from typing import Optional
 
 
 @fetcher('hitokoto')
