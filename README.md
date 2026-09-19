@@ -30,7 +30,7 @@ PipeSay 将句子处理抽象为一条可配置的流水线。每个环节都通
 
 处理器配置：
 ```yaml
-    pipeline:
+    processes:
       - processor: to_weak
       - processor: i18n
         params:
