@@ -69,8 +69,7 @@ def edge_tts_outputer(sentences: list[str], voice: str = "zh-CN-XiaoxiaoNeural",
     total = len(sentences)
 
     for index, text in enumerate(sentences, 1):
-        log(f"🔊 正在合成第 {index}/{total} 句语音:")
-        log(text)
+        log(f"🔊 正在合成第 {index}/{total} 句语音...")
         tmp_path = os.path.join(tempfile.gettempdir(), f"pipesay_tts_{index}.mp3")
         asyncio.run(partial(_synthesize, text, tmp_path)())
         audio_paths.append(tmp_path)
@@ -78,6 +77,7 @@ def edge_tts_outputer(sentences: list[str], voice: str = "zh-CN-XiaoxiaoNeural",
     log(f"✅ 全部 {total} 句合成完成，开始播放")
 
     for index, audio_path in enumerate(audio_paths, 1):
+        log(sentences[index - 1])
         enter_to_next(f"按回车播放第 {index}/{total} 句 ↩️")
         playsound(audio_path)
         log(f"✅ 第 {index}/{total} 句播放完成")
