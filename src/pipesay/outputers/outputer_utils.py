@@ -47,3 +47,43 @@ async def notify(sentences: list, level: str='normal', log=None):
     await asyncio.sleep(3)
 
     log(f"已发送 {len(sentences)} 条通知，类型：{level}")
+
+@outputer('tts')
+def edge_tts_outputer(sentences: list[str], voice: str = "zh-CN-XiaoxiaoNeural", rate: str = "+0%", log=None) -> None:
+    """使用 edge-tts 将句子批量合成为语音，再逐个播放"""
+    import asyncio
+    import os
+    import tempfile
+    from functools import partial
+
+    import edge_tts
+    from playsound3 import playsound
+
+    from pipesay.utils.utils import enter_to_next
+
+    async def _synthesize(text: str, output_path: str) -> None:
+        communicate = edge_tts.Communicate(text, voice, rate=rate)
+        await communicate.save(output_path)
+
+    audio_paths: list[str] = []
+    total = len(sentences)
+
+    for index, text in enumerate(sentences, 1):
+        log(f"🔊 正在合成第 {index}/{total} 句语音:")
+        log(text)
+        tmp_path = os.path.join(tempfile.gettempdir(), f"pipesay_tts_{index}.mp3")
+        asyncio.run(partial(_synthesize, text, tmp_path)())
+        audio_paths.append(tmp_path)
+
+    log(f"✅ 全部 {total} 句合成完成，开始播放")
+
+    for index, audio_path in enumerate(audio_paths, 1):
+        enter_to_next(f"按回车播放第 {index}/{total} 句 ↩️")
+        playsound(audio_path)
+        log(f"✅ 第 {index}/{total} 句播放完成")
+
+    for audio_path in audio_paths:
+        try:
+            os.remove(audio_path)
+        except OSError:
+            pass
