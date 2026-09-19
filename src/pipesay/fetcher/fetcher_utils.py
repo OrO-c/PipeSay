@@ -1,3 +1,4 @@
+from __future__ import annotations
 import random
 import time
 
@@ -7,6 +8,7 @@ from urllib3 import Retry
 
 from pipesay.constants.constants import YIYAN_CATEGORY
 from pipesay.fetcher.base import fetcher
+from typing import Optional
 
 
 @fetcher('hitokoto')
@@ -83,3 +85,29 @@ def _fetch_hitokoto(category: list):
         raise
 
     return r.json()["hitokoto"], r.json()["from_who"], r.json()["from"]
+
+@fetcher('user_input')
+def user_input(sentences: list[str] | None=None, repl: bool = False, log=None):
+    
+    if sentences is None:
+        sentences = []
+    
+    if repl:
+        repl_list:list = []
+        while True:
+            sen = (input("请输入你的句子（按回车结束录入）："))
+            
+            if sen == '':
+                if len(repl_list) != 0:
+                    break
+                print("您的句子列表里什么都没有哦，请输入！")
+                continue
+            
+            repl_list.append(sen)
+            print(f"“{sen[:5]}...”已添加")
+        sentences = repl_list
+    
+    elif not sentences:
+        raise ValueError("sentences 不能为空")
+    
+    return sentences
