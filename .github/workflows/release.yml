@@ -48,7 +48,7 @@ jobs:
         run: |
           export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PIPESAY=${GITHUB_REF_NAME#v}
           python -m pip install build setuptools-scm
-          python -m build
+          python -m build --no-isolation
 
       - name: Upload distributions
         uses: actions/upload-artifact@v4
