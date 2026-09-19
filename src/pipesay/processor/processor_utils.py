@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pipesay.processor.base import processor
 
 

@@ -2,7 +2,7 @@ import os
 import subprocess
 
 
-def enter_to_next(prompt):
+def enter_to_next(prompt: str):
     """
     对程序进行阻塞使用户可以阅读句子/提示信息等再进行下一步
     

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pipesay.core.pipeline import Pipeline
 from pipesay.core.registry import register
 

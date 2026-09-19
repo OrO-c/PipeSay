@@ -1,8 +1,6 @@
 import asyncio
 import inspect
 
-import yaml
-
 
 class Pipeline:
     """

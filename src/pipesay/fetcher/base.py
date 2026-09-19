@@ -1,7 +1,7 @@
+from __future__ import annotations
+
 import asyncio
 import inspect
-
-import yaml
 
 from pipesay.core.registry import register
 
