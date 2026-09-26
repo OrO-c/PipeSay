@@ -21,3 +21,6 @@ dependencies = [
 
 [project.scripts]
 pipesay = "pipesay.main:main"
+
+[tool.setuptools_scm]
+local_scheme = "no-local-version"
